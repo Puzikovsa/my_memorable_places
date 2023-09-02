@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_memorable_places/pages/added_place_page.dart';
 import 'package:my_memorable_places/pages/places_page.dart';
 
 void main() {
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
             .copyWith(secondary: Colors.amber),
         ),
       home: const PlacesPage(),
+      routes: {
+        AddedPlacePage.rout: (context) => const AddedPlacePage()
+      },
     );
   }
 }
