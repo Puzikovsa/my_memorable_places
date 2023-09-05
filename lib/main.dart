@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:my_memorable_places/pages/added_place_page.dart';
 import 'package:my_memorable_places/pages/places_page.dart';
 import 'package:my_memorable_places/providers/my_places.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async{
+  await Hive.initFlutter();
+  
   runApp(const MyApp());
 }
 

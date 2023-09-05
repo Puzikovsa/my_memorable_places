@@ -26,7 +26,9 @@ class PlacesPage extends StatelessWidget {
                   itemCount: myPlaces.items.length,
                   itemBuilder: (context, index) => ListTile(
                     title: Text(myPlaces.items[index].title),
-                    onTap: () {},
+                    onTap: () {
+                      //TODO go to detail page
+                    },
                     leading: CircleAvatar(
                       backgroundImage: FileImage(myPlaces.items[index].image),
                     ),
