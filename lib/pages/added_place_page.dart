@@ -1,12 +1,32 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:my_memorable_places/providers/my_place.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/image_input.dart';
 
-class AddedPlacePage extends StatelessWidget {
+class AddedPlacePage extends StatefulWidget {
   static const String rout = '/add_place';
+
+  const AddedPlacePage({super.key});
+
+  @override
+  State<AddedPlacePage> createState() => _AddedPlacePageState();
+}
+
+class _AddedPlacePageState extends State<AddedPlacePage> {
   final _titleController = TextEditingController();
 
-  AddedPlacePage({super.key});
+  File? _pikedImage;
+
+  _savePlace() {
+    if (_titleController.text.isEmpty || _pikedImage == null) {
+      return;
+    }
+    Provider.of<MyPlace>(context, listen: false)
+        .addPlace(_titleController.text, _pikedImage!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +61,8 @@ class AddedPlacePage extends StatelessWidget {
           ),
           ElevatedButton.icon(
             onPressed: () {
-              Navigator.pop(context);
+              _savePlace();
+              Navigator.of(context).pop();
             },
             icon: const Icon(
               Icons.add,
