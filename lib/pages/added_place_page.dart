@@ -20,6 +20,10 @@ class _AddedPlacePageState extends State<AddedPlacePage> {
 
   File? _pikedImage;
 
+  void _selectImage(File pikedImage){
+    _pikedImage = pikedImage;
+  }
+
   _savePlace() {
     if (_titleController.text.isEmpty || _pikedImage == null) {
       return;
@@ -53,7 +57,7 @@ class _AddedPlacePageState extends State<AddedPlacePage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    const ImageInput()
+                    ImageInput(onSelectImage: _selectImage)
                   ],
                 ),
               ),

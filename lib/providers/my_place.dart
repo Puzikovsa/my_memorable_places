@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../models/place.dart';
 
 class MyPlace with ChangeNotifier {
-  List<Place> _items = [];
+  final List<Place> _items = [];
 
   List<Place> get items {
     return [..._items];
@@ -14,5 +14,9 @@ class MyPlace with ChangeNotifier {
   void addPlace(String pikedTitle, File pikedImage) {
     final newPlace =
         Place(DateTime.now().toString(), pikedTitle, null, pikedImage);
+    _items.add(newPlace);
+    notifyListeners();
   }
+
+
 }
