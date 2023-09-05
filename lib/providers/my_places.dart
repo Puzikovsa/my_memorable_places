@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../models/place.dart';
 
-class MyPlace with ChangeNotifier {
+class MyPlaces with ChangeNotifier {
   final List<Place> _items = [];
 
   List<Place> get items {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_memorable_places/pages/added_place_page.dart';
-import 'package:my_memorable_places/providers/my_place.dart';
+import 'package:my_memorable_places/providers/my_places.dart';
 import 'package:provider/provider.dart';
 
 class PlacesPage extends StatelessWidget {
@@ -19,16 +19,16 @@ class PlacesPage extends StatelessWidget {
                 icon: const Icon(Icons.add))
           ],
         ),
-        body: Consumer<MyPlace>(
-          builder: (context, myPlace, child) => myPlace.items.isEmpty
+        body: Consumer<MyPlaces>(
+          builder: (context, myPlaces, child) => myPlaces.items.isEmpty
               ? child!
               : ListView.builder(
-                  itemCount: myPlace.items.length,
+                  itemCount: myPlaces.items.length,
                   itemBuilder: (context, index) => ListTile(
-                    title: Text(myPlace.items[index].title),
+                    title: Text(myPlaces.items[index].title),
                     onTap: () {},
                     leading: CircleAvatar(
-                      backgroundImage: FileImage(myPlace.items[index].image),
+                      backgroundImage: FileImage(myPlaces.items[index].image),
                     ),
                   ),
                 ),

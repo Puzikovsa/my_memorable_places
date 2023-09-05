@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:my_memorable_places/providers/my_place.dart';
+import 'package:my_memorable_places/providers/my_places.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/image_input.dart';
@@ -28,7 +28,7 @@ class _AddedPlacePageState extends State<AddedPlacePage> {
     if (_titleController.text.isEmpty || _pikedImage == null) {
       return;
     }
-    Provider.of<MyPlace>(context, listen: false)
+    Provider.of<MyPlaces>(context, listen: false)
         .addPlace(_titleController.text, _pikedImage!);
   }
 

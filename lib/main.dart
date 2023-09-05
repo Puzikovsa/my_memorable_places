@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_memorable_places/pages/added_place_page.dart';
 import 'package:my_memorable_places/pages/places_page.dart';
-import 'package:my_memorable_places/providers/my_place.dart';
+import 'package:my_memorable_places/providers/my_places.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
-      value: MyPlace(),
+      value: MyPlaces(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
