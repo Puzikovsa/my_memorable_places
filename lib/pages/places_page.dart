@@ -26,32 +26,43 @@ class PlacesPage extends StatelessWidget {
               Provider.of<MyPlaces>(context, listen: false).fetchAndSetData(),
           builder: (context, snapshot) {
             return snapshot.connectionState == ConnectionState.waiting
-            ? const Center(
-              child: CircularProgressIndicator(),
-            )
-            : Consumer<MyPlaces>(
-              builder: (context, myPlaces, child) => myPlaces.items.isEmpty
-                  ? child!
-                  : ListView.builder(
-                      itemCount: myPlaces.items.length,
-                      itemBuilder: (context, index) => ListTile(
-                        title: Text(myPlaces.items[index].title),
-                        onTap: () {
-                          //TODO go to detail page
-                        },
-                        leading: CircleAvatar(
-                          backgroundImage:
-                              FileImage(myPlaces.items[index].image),
-                        ),
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Consumer<MyPlaces>(
+                    builder: (context, myPlaces, child) => myPlaces
+                            .items.isEmpty
+                        ? child!
+                        : ListView.builder(
+                            itemCount: myPlaces.items.length,
+                            itemBuilder: (context, index) => ListTile(
+                              title: Text(myPlaces.items[index].title),
+                              trailing: IconButton(
+                                onPressed: () {
+                                  Provider.of<MyPlaces>(context, listen: false)
+                                      .deleteData(myPlaces.items[index]);
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                              ),
+                              onTap: () {
+                                //TODO go to detail page
+                              },
+                              leading: CircleAvatar(
+                                backgroundImage:
+                                    FileImage(myPlaces.items[index].image),
+                              ),
+                            ),
+                          ),
+                    child: const Center(
+                      child: Text(
+                        'Не найдено ни одного места.\nСамое время добавить новое!',
+                        textAlign: TextAlign.center,
                       ),
                     ),
-              child: const Center(
-                child: Text(
-                  'Не найдено ни одного места.\nСамое время добавить новое!',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            );
+                  );
           }),
     );
   }

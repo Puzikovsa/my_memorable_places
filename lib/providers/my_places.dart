@@ -25,4 +25,23 @@ class MyPlaces with ChangeNotifier {
     var db = await HiveHelper.getDataBase<Place>('user_places');
     _items = db.values.toList();
   }
+
+  Future<void> deleteData(Place place)async {
+    var db = await HiveHelper.getDataBase<Place>('user_places');
+    if(_items.contains(place)) {
+      db.deleteAt(_items.indexOf(place));
+      _items.remove(place);
+    }
+    notifyListeners();
+  }
+
+  Future<void> updateData(int index, Place newPlace)async {
+    var db = await HiveHelper.getDataBase<Place>('user_places');
+    if(index < _items.length) {
+      _items.removeAt(index);
+      _items.insert(index, newPlace);
+      db.putAt(index, newPlace);
+    }
+    notifyListeners();
+  }
 }
