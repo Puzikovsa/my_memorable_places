@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:my_memorable_places/models/place.dart';
+import 'package:my_memorable_places/models/place_location.dart';
 import 'package:my_memorable_places/pages/added_place_page.dart';
 import 'package:my_memorable_places/pages/places_page.dart';
 import 'package:my_memorable_places/providers/my_places.dart';
@@ -7,6 +9,8 @@ import 'package:provider/provider.dart';
 
 void main() async{
   await Hive.initFlutter();
+  Hive.registerAdapter<Place>(PlaceAdapter());
+  Hive.registerAdapter<PlaceLocation>(PlaceLocationAdapter());
   
   runApp(const MyApp());
 }
