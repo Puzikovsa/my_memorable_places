@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:my_memorable_places/models/place_location.dart';
 import 'package:my_memorable_places/providers/my_places.dart';
 import 'package:provider/provider.dart';
 
@@ -18,19 +19,25 @@ class AddedPlacePage extends StatefulWidget {
 
 class _AddedPlacePageState extends State<AddedPlacePage> {
   final _titleController = TextEditingController();
-
   File? _pikedImage;
+  PlaceLocation? _pickedPlace;
 
   void _selectImage(File pikedImage){
     _pikedImage = pikedImage;
   }
 
+  void _selectPlace(PlaceLocation pikedPlace){
+    _pickedPlace = pikedPlace;
+  }
+
   _savePlace() {
-    if (_titleController.text.isEmpty || _pikedImage == null) {
+    if (_titleController.text.isEmpty ||
+        _pikedImage == null ||
+        _pickedPlace == null) {
       return;
     }
     Provider.of<MyPlaces>(context, listen: false)
-        .addPlace(_titleController.text, _pikedImage!);
+        .addPlace(_titleController.text, _pikedImage!, _pickedPlace!);
   }
 
   @override
@@ -62,7 +69,9 @@ class _AddedPlacePageState extends State<AddedPlacePage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    const LocationInput()
+                    LocationInput(
+                      onSelectedLocation: _selectPlace,
+                    ),
                   ],
                 ),
               ),

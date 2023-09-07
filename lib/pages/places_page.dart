@@ -3,7 +3,6 @@ import 'package:my_memorable_places/pages/added_place_page.dart';
 import 'package:my_memorable_places/providers/my_places.dart';
 import 'package:provider/provider.dart';
 
-import '../models/place.dart';
 
 class PlacesPage extends StatelessWidget {
   const PlacesPage({super.key});

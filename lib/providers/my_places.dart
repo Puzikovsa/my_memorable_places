@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:my_memorable_places/core/hive_helper.dart';
 
 import '../models/place.dart';
+import '../models/place_location.dart';
 
 class MyPlaces with ChangeNotifier {
   List<Place> _items = [];
@@ -12,9 +13,12 @@ class MyPlaces with ChangeNotifier {
     return [..._items];
   }
 
-  void addPlace(String pikedTitle, File pikedImage) async {
+  void addPlace(
+      String pikedTitle,
+      File pikedImage,
+      PlaceLocation pickedLocation) async {
     final newPlace =
-        Place(DateTime.now().toString(), pikedTitle, null, pikedImage);
+        Place(DateTime.now().toString(), pikedTitle, pickedLocation, pikedImage);
     _items.add(newPlace);
     (await HiveHelper.getDataBase<Place>('user_places')).add(newPlace);
 

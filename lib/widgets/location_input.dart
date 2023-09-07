@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 
+import '../core/location_helper.dart';
+import '../models/place_location.dart';
+
 class LocationInput extends StatefulWidget {
-  const LocationInput({super.key});
+  final Function(PlaceLocation) onSelectedLocation;
+  const LocationInput({super.key, required this.onSelectedLocation});
 
   @override
   State<LocationInput> createState() => _LocationInputState();
@@ -13,7 +17,27 @@ class _LocationInputState extends State<LocationInput> {
 
   Future<void> _getUserLocation()async {
     final locationData = await Location().getLocation();
+
+    if(locationData.latitude == null || locationData.longitude == null){
+      return;
+    }
+    _getPreviewImageUrl(locationData.latitude!, locationData.longitude!);
   }
+
+  Future<void> _getPreviewImageUrl(
+      double latitude,
+      double longitude) async {
+
+    setState(() {
+      _previewImageUrl = LocationHelper.generateLocationPreviewImage(
+          latitude: latitude,
+          longitude: longitude);
+    });
+
+    widget.onSelectedLocation(
+        PlaceLocation(latitude, longitude, null),
+    );
+}
 
   @override
   Widget build(BuildContext context) {
