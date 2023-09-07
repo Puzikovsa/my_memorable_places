@@ -5,6 +5,7 @@ import 'package:my_memorable_places/providers/my_places.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/image_input.dart';
+import '../widgets/location_input.dart';
 
 class AddedPlacePage extends StatefulWidget {
   static const String rout = '/add_place';
@@ -57,7 +58,11 @@ class _AddedPlacePageState extends State<AddedPlacePage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    ImageInput(onSelectImage: _selectImage)
+                    ImageInput(onSelectImage: _selectImage),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const LocationInput()
                   ],
                 ),
               ),

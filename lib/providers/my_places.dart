@@ -38,9 +38,10 @@ class MyPlaces with ChangeNotifier {
   Future<void> updateData(int index, Place newPlace)async {
     var db = await HiveHelper.getDataBase<Place>('user_places');
     if(index < _items.length) {
+      db.putAt(index, newPlace);
       _items.removeAt(index);
       _items.insert(index, newPlace);
-      db.putAt(index, newPlace);
+
     }
     notifyListeners();
   }
