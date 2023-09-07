@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 class LocationInput extends StatefulWidget {
   const LocationInput({super.key});
@@ -10,6 +11,10 @@ class LocationInput extends StatefulWidget {
 class _LocationInputState extends State<LocationInput> {
   String? _previewImageUrl;
 
+  Future<void> _getUserLocation()async {
+    final locationData = await Location().getLocation();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,6 +23,12 @@ class _LocationInputState extends State<LocationInput> {
           height: 300,
           width: double.infinity,
           alignment: Alignment.center,
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+              color: Colors.grey,
+            )
+          ),
           child: _previewImageUrl == null
               ? const Text('Местоположение не выбрано')
               : Image.network(
@@ -26,13 +37,15 @@ class _LocationInputState extends State<LocationInput> {
                   width: double.infinity,
                 ),
         ),
-        Expanded(
-          child: TextButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.location_on),
-            label: const Text(
-              'Текущее местоположение',
-            ),
+        const SizedBox(
+          height: 10,
+        ),
+        TextButton.icon(
+          onPressed: _getUserLocation,
+          icon: const Icon(Icons.location_on),
+          label: const Text(
+            'Установить текущее местоположение',
+            textAlign: TextAlign.center,
           ),
         ),
       ],
