@@ -30,7 +30,7 @@ class _LocationInputState extends State<LocationInput> {
       latitude: latitude,
       longitude: longitude,
     );
-    PlaceLocation placeLocation = PlaceLocation(latitude, longitude, address);
+    PlaceLocation placeLocation = PlaceLocation('id',latitude, longitude, address);
 
     setState(() {
       _selectedPlace = placeLocation;

@@ -4,14 +4,18 @@ part 'place_location.g.dart';
 @HiveType(typeId: 1)
 class PlaceLocation{
   @HiveField(0)
-  final double latitude;
+  final String id;
   @HiveField(1)
-  final double longitude;
+  final double latitude;
   @HiveField(2)
+  final double longitude;
+  @HiveField(3)
   final String? address;
 
   PlaceLocation(
+      this.id,
       this.latitude,
       this.longitude,
-      this.address);
+      this.address,
+      );
 }

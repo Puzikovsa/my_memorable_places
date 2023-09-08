@@ -20,7 +20,7 @@ class MyPlaces with ChangeNotifier {
     final newPlace =
         Place(DateTime.now().toString(), pikedTitle, pickedLocation, pikedImage);
     _items.add(newPlace);
-    (await HiveHelper.getDataBase<Place>('user_places')).add(newPlace);
+    (await HiveHelper.getDataBase<Place>('user_places')).put(newPlace.id, newPlace);
 
     notifyListeners();
   }
