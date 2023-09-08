@@ -6,6 +6,7 @@ import '../models/place_location.dart';
 
 class LocationInput extends StatefulWidget {
   final Function(PlaceLocation) onSelectedLocation;
+
   const LocationInput({super.key, required this.onSelectedLocation});
 
   @override
@@ -13,31 +14,30 @@ class LocationInput extends StatefulWidget {
 }
 
 class _LocationInputState extends State<LocationInput> {
-  String? _previewImageUrl;
+  PlaceLocation? _selectedPlace;
 
-  Future<void> _getUserLocation()async {
+  Future<void> _getUserLocation() async {
     final locationData = await Location().getLocation();
 
-    if(locationData.latitude == null || locationData.longitude == null){
+    if (locationData.latitude == null || locationData.longitude == null) {
       return;
     }
     _getPreviewImageUrl(locationData.latitude!, locationData.longitude!);
   }
 
-  Future<void> _getPreviewImageUrl(
-      double latitude,
-      double longitude) async {
+  Future<void> _getPreviewImageUrl(double latitude, double longitude) async {
+    String address = await LocationHelper.getAdressFromLocation(
+      latitude: latitude,
+      longitude: longitude,
+    );
+    PlaceLocation placeLocation = PlaceLocation(latitude, longitude, address);
 
     setState(() {
-      _previewImageUrl = LocationHelper.generateLocationPreviewImage(
-          latitude: latitude,
-          longitude: longitude);
+      _selectedPlace = placeLocation;
     });
 
-    widget.onSelectedLocation(
-        PlaceLocation(latitude, longitude, null),
-    );
-}
+    widget.onSelectedLocation(_selectedPlace!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,15 +48,16 @@ class _LocationInputState extends State<LocationInput> {
           width: double.infinity,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-              color: Colors.grey,
-            )
-          ),
-          child: _previewImageUrl == null
+              border: Border.all(
+            width: 1,
+            color: Colors.grey,
+          )),
+          child: _selectedPlace == null
               ? const Text('Местоположение не выбрано')
               : Image.network(
-                  _previewImageUrl!,
+                  LocationHelper.generateLocationPreviewImage(
+                      latitude: _selectedPlace!.latitude,
+                      longitude: _selectedPlace!.longitude),
                   fit: BoxFit.cover,
                   width: double.infinity,
                 ),
